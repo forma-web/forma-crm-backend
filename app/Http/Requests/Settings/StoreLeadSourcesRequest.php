@@ -4,7 +4,7 @@ namespace App\Http\Requests\Settings;
 
 use App\Http\Requests\BaseFormRequest;
 
-class LeadSourcesCreate extends BaseFormRequest
+class StoreLeadSourcesRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

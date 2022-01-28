@@ -2,20 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class StoreFeedbackRequest extends FormRequest
+class StoreFeedbackRequest extends BaseFormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +12,11 @@ class StoreFeedbackRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'client' => ['string', 'min:1', 'max:255'],
+            'raiting' => ['required', 'numeric', 'between:1,5'],
+            'advantages' => ['string', 'min:1', 'max:5000'],
+            'disadvantages' => ['string', 'min:1', 'max:5000'],
+            'comment' => ['string', 'min:1', 'max:5000'],
         ];
     }
 }

@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Feedback extends Model
 {
     use HasFactory;
+
+    /**
+     * @var string[]
+     */
+    protected $fillable = [
+        'client',
+        'raiting',
+        'advantages',
+        'disadvantages',
+        'comment',
+    ];
 }

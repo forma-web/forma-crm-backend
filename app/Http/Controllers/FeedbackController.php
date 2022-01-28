@@ -2,85 +2,79 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\FeedbackRepository;
 use App\Http\Requests\StoreFeedbackRequest;
 use App\Http\Requests\UpdateFeedbackRequest;
+use App\Http\Resources\FeedbackResource;
 use App\Models\Feedback;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class FeedbackController extends Controller
 {
     /**
+     * @var \App\Http\Repositories\FeedbackRepository
+     */
+    private FeedbackRepository $repository;
+
+    /**
+     * @param FeedbackRepository $repository
+     */
+    public function __construct(FeedbackRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+    /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
-        //
+        return FeedbackResource::collection($this->repository->getFeedbackByPage());
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display the specified resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \App\Http\Resources\FeedbackResource
      */
-    public function create()
+    public function show(int $id): FeedbackResource
     {
-        //
+        return new FeedbackResource($this->repository->getFeedbackById($id));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreFeedbackRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\FeedbackResource
      */
-    public function store(StoreFeedbackRequest $request)
+    public function store(StoreFeedbackRequest $request): FeedbackResource
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Feedback  $feedback
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Feedback $feedback)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Feedback  $feedback
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Feedback $feedback)
-    {
-        //
+        return new FeedbackResource(Feedback::create($request->validated()));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateFeedbackRequest  $request
-     * @param  \App\Models\Feedback  $feedback
-     * @return \Illuminate\Http\Response
+     * @param \App\Http\Requests\UpdateFeedbackRequest $request
+     * @param int $id
+     * @return void
      */
-    public function update(UpdateFeedbackRequest $request, Feedback $feedback)
+    public function update(UpdateFeedbackRequest $request, int $id): void
     {
-        //
+        $this->repository->getFeedbackById($id)->update($request->validated());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Feedback  $feedback
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return void
      */
-    public function destroy(Feedback $feedback)
+    public function destroy(int $id): void
     {
-        //
+        $this->repository->getFeedbackById($id)->delete();
     }
 }

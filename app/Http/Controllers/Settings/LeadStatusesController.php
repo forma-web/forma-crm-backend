@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Repositories\Settings\LeadStatusesRepository;
-use App\Http\Requests\Settings\LeadSourcesUpdate;
-use App\Http\Requests\Settings\LeadStatusesUpdate;
+use App\Http\Requests\Settings\UpdateLeadStatusesRequest;
 use App\Http\Resources\Settings\LeadStatusesResource;
 use App\Models\Settings\LeadStatuses;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -27,7 +26,7 @@ class LeadStatusesController extends SettingsController
     /**
      * Получение всех списка всех статусов
      *
-     * @return AnonymousResourceCollection
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(): AnonymousResourceCollection
     {
@@ -48,10 +47,10 @@ class LeadStatusesController extends SettingsController
     /**
      * Store a newly created resource in storage.
      *
-     * @param LeadSourcesUpdate $request
+     * @param \App\Http\Requests\Settings\UpdateLeadStatusesRequest $request
      * @return LeadStatusesResource
      */
-    public function store(LeadSourcesUpdate $request): LeadStatusesResource
+    public function store(UpdateLeadStatusesRequest $request): LeadStatusesResource
     {
         return new LeadStatusesResource(LeadStatuses::create($request->validated()));
     }
@@ -59,11 +58,11 @@ class LeadStatusesController extends SettingsController
     /**
      * Update the specified resource in storage.
      *
-     * @param LeadStatusesUpdate $request
+     * @param \App\Http\Requests\Settings\UpdateLeadStatusesRequest $request
      * @param int $id
      * @return void
      */
-    public function update(LeadStatusesUpdate $request, int $id): void
+    public function update(UpdateLeadStatusesRequest $request, int $id): void
     {
         $this->repository->getStatusById($id)->update($request->validated());
     }

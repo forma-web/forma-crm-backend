@@ -4,7 +4,7 @@ namespace App\Http\Requests\Settings;
 
 use App\Http\Requests\BaseFormRequest;
 
-class LeadStatusesUpdate extends BaseFormRequest
+class StoreLeadStatusesRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,8 +14,8 @@ class LeadStatusesUpdate extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'name' => ['string', 'min:3', 'max:255'],
-            'step' => ['numeric', 'min:1'],
+            'name' => ['required', 'string', 'min:3', 'max:255'],
+            'step' => ['required', 'numeric', 'min:1', 'unique:lead_statuses'],
         ];
     }
 }

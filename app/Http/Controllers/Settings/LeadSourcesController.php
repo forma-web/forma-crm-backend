@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Repositories\Settings\LeadSourcesRepository;
-use App\Http\Requests\Settings\LeadSourcesCreate;
-use App\Http\Requests\Settings\LeadSourcesUpdate;
+use App\Http\Requests\Settings\StoreLeadSourcesRequest;
+use App\Http\Requests\Settings\UpdateLeadSourcesRequest;
 use App\Http\Resources\Settings\LeadSourcesResource;
 use App\Models\Settings\LeadSources;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -47,10 +47,10 @@ class LeadSourcesController extends SettingsController
     /**
      * Store a newly created resource in storage.
      *
-     * @param \App\Http\Requests\Settings\LeadSourcesCreate $request
+     * @param \App\Http\Requests\Settings\StoreLeadSourcesRequest $request
      * @return \App\Http\Resources\Settings\LeadSourcesResource
      */
-    public function store(LeadSourcesCreate $request): LeadSourcesResource
+    public function store(StoreLeadSourcesRequest $request): LeadSourcesResource
     {
         return new LeadSourcesResource(LeadSources::create($request->validated()));
     }
@@ -58,11 +58,11 @@ class LeadSourcesController extends SettingsController
     /**
      * Update the specified resource in storage.
      *
-     * @param \App\Http\Requests\Settings\LeadSourcesUpdate $request
+     * @param \App\Http\Requests\Settings\UpdateLeadSourcesRequest $request
      * @param int $id
      * @return void
      */
-    public function update(LeadSourcesUpdate $request, int $id): void
+    public function update(UpdateLeadSourcesRequest $request, int $id): void
     {
         $this->repository->getSourceById($id)->update($request->validated());
     }
