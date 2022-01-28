@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Feedback;
+use Database\Seeders\Settings\LeadSourcesSeeder;
+use Database\Seeders\Settings\LeadStatusesSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            LeadStatusesSeeder::class,
+            LeadSourcesSeeder::class,
+        ]);
+
+        Feedback::factory()->count(50)->create();
     }
 }
