@@ -23,6 +23,7 @@ class FeedbackController extends Controller
     {
         $this->repository = $repository;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +48,7 @@ class FeedbackController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreFeedbackRequest  $request
+     * @param \App\Http\Requests\StoreFeedbackRequest $request
      * @return \App\Http\Resources\FeedbackResource
      */
     public function store(StoreFeedbackRequest $request): FeedbackResource

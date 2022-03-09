@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Settings;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Feedback extends Model
+class EmployeeDepartment extends Model
 {
     use HasFactory;
 
@@ -13,17 +13,14 @@ class Feedback extends Model
      * @var string[]
      */
     protected $fillable = [
-        'client',
-        'raiting',
-        'advantages',
-        'disadvantages',
-        'comment',
+        'name',
+        'office_id',
     ];
 
     /**
      * @var string[]
      */
     protected $casts = [
-      'raiting' => 'integer',
+        'office_id' => 'integer',
     ];
 }

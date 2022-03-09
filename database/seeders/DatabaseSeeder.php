@@ -3,8 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\Feedback;
-use Database\Seeders\Settings\LeadSourcesSeeder;
-use Database\Seeders\Settings\LeadStatusesSeeder;
+use Database\Seeders\Settings\EmployeeDepartmentSeeder;
+use Database\Seeders\Settings\EmployeeOfficeSeeder;
+use Database\Seeders\Settings\EmployeePermissionSeeder;
+use Database\Seeders\Settings\EmployeePositionSeeder;
+use Database\Seeders\Settings\LeadSourceSeeder;
+use Database\Seeders\Settings\LeadStatusSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,8 +21,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            LeadStatusesSeeder::class,
-            LeadSourcesSeeder::class,
+            LeadStatusSeeder::class,
+            LeadSourceSeeder::class,
+            EmployeeOfficeSeeder::class,
+            EmployeeDepartmentSeeder::class,
+            EmployeePositionSeeder::class,
+            EmployeePermissionSeeder::class,
         ]);
 
         Feedback::factory()->count(50)->create();
