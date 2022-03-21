@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\LeadController;
 use App\Http\Controllers\Settings\EmployeeDepartmentController;
 use App\Http\Controllers\Settings\EmployeeOfficeController;
 use App\Http\Controllers\FeedbackController;
@@ -34,11 +36,8 @@ Route::prefix('/settings')->group(function () {
         Route::apiResource('/positions', EmployeePositionController::class);
         Route::match(['get', 'head'],'/positions/{position}/permissions',[EmployeePositionController::class, 'showPermissions']);
     });
-
-    // TODO: Add leads and employees
-
 });
 
 Route::apiResource('/feedback', FeedbackController::class);
-
-// TODO: Refactoring all validation rules
+Route::apiResource('/employees', EmployeeController::class);
+Route::apiResource('/leads', LeadController::class);

@@ -27,7 +27,7 @@ class EmployeeOfficeRepository extends BaseRepository
 
     /**
      * @param int $id
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function getOfficeById(int $id): Model
     {

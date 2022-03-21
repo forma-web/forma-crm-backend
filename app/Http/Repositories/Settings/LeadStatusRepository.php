@@ -18,16 +18,16 @@ class LeadStatusRepository extends BaseRepository
     }
 
     /**
-     * @return Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function allStatuses(): Collection
     {
-        return $this->model->orderBy('step')->get();
+        return $this->model->all();
     }
 
     /**
      * @param int $id
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function getStatusById(int $id): Model
     {

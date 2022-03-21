@@ -27,7 +27,7 @@ class EmployeePermissionRepository extends BaseRepository
 
     /**
      * @param int $id
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function getPermissionById(int $id): Model
     {

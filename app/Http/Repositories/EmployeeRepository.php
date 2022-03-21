@@ -1,26 +1,25 @@
 <?php
 
-namespace App\Http\Repositories\Settings;
+namespace App\Http\Repositories;
 
-use App\Http\Repositories\BaseRepository;
-use App\Models\Settings\EmployeeDepartment;
+use App\Models\Employee;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-class EmployeeDepartmentRepository extends BaseRepository
+class EmployeeRepository extends BaseRepository
 {
     /**
      * @inheritDoc
      */
     protected function getModelClass(): string
     {
-        return EmployeeDepartment::class;
+        return Employee::class;
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getAllDepartments(): Collection
+    public function getAllEmployees(): Collection
     {
         return $this->model->all();
     }
@@ -29,7 +28,7 @@ class EmployeeDepartmentRepository extends BaseRepository
      * @param int $id
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function getDepartmentById(int $id): Model
+    public function getEmployeeById(int $id): Model
     {
         return $this->model->findOrFail($id);
     }
