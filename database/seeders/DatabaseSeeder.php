@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employee;
 use App\Models\Feedback;
 use Database\Seeders\Settings\EmployeeDepartmentSeeder;
 use Database\Seeders\Settings\EmployeeOfficeSeeder;
@@ -30,5 +31,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Feedback::factory()->count(50)->create();
+        Employee::factory()->count(1)->create([
+            'position_id' => 1,
+            'department_id' => 1,
+            'office_id' => 1,
+        ]);
     }
 }

@@ -25,7 +25,8 @@ class EmployeeFactory extends Factory
             'phone' => $this->faker->e164PhoneNumber(),
             'email' => $this->faker->email(),
             'sex' => $sex,
-            'password' => bcrypt($this->faker->password()),
+            'password' => bcrypt('123456'),
+//            'password' => bcrypt($this->faker->password()),
         ];
     }
 

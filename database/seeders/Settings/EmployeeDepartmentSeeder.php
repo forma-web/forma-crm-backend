@@ -16,19 +16,15 @@ class EmployeeDepartmentSeeder extends Seeder
     {
         $departments = [
             [
-                'office_id' => 1,
                 'name' => 'Менеджеры',
             ],
             [
-                'office_id' => 1,
                 'name' => 'Отдел разработки',
             ],
             [
-                'office_id' => 2,
                 'name' => 'Менеджеры',
             ],
             [
-                'office_id' => 3,
                 'name' => 'Менеджеры',
             ],
         ];

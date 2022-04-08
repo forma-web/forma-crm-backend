@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\Settings\EmployeeDepartmentController;
@@ -9,6 +11,7 @@ use App\Http\Controllers\Settings\EmployeePermissionController;
 use App\Http\Controllers\Settings\EmployeePositionController;
 use App\Http\Controllers\Settings\LeadSourceController;
 use App\Http\Controllers\Settings\LeadStatusController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +39,12 @@ Route::prefix('/settings')->group(function () {
         Route::apiResource('/positions', EmployeePositionController::class);
         Route::match(['get', 'head'],'/positions/{position}/permissions',[EmployeePositionController::class, 'showPermissions']);
     });
+
+});
+
+Route::prefix('/auth')->group(function () {
+    Route::post('/registration', RegistrationController::class);
+    Route::post('/login', LoginController::class);
 });
 
 Route::apiResource('/feedback', FeedbackController::class);

@@ -16,8 +16,9 @@ class CreateEmployeesTable extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('position_id');
-            $table->unsignedBigInteger('department_id');
+            $table->foreignId('position_id');
+            $table->foreignId('department_id');
+            $table->foreignId('office_id');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('middle_name')->nullable();
@@ -28,6 +29,24 @@ class CreateEmployeesTable extends Migration
             $table->enum('sex', SexEnum::values());
             $table->string('password');
             $table->timestamps();
+
+            $table->foreign('position_id')
+                ->references('id')
+                ->on('employee_positions')
+                ->onUpdate('cascade')
+                ->onDelete('no action');
+
+            $table->foreign('department_id')
+                ->references('id')
+                ->on('employee_departments')
+                ->onUpdate('cascade')
+                ->onDelete('no action');
+
+            $table->foreign('office_id')
+                ->references('id')
+                ->on('employee_offices')
+                ->onUpdate('cascade')
+                ->onDelete('no action');
         });
     }
 

@@ -14,8 +14,7 @@ class UpdateEmployeeDepartmentRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'office_id' => ['numeric', 'exists:employee_offices,id'],
-            'name' => ['string', 'max:255'],
+            'name' => ['string', 'min:1', 'max:255'],
         ];
     }
 }

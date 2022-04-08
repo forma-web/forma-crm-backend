@@ -14,8 +14,8 @@ class StoreEmployeeOfficeRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'location' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'min:1', 'max:255'],
+            'location' => ['required', 'string', 'min:1', 'max:255'],
         ];
     }
 }

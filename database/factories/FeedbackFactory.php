@@ -15,7 +15,7 @@ class FeedbackFactory extends Factory
     {
         return [
             'client' => $this->faker->firstName(),
-            'raiting' => $this->faker->numberBetween(1, 5),
+            'rating' => $this->faker->numberBetween(1, 5),
             'advantages' => $this->faker->paragraph(),
             'disadvantages' => $this->faker->paragraph(),
             'comment' => $this->faker->paragraph(),

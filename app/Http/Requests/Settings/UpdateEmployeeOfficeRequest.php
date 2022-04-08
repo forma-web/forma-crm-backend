@@ -14,8 +14,8 @@ class UpdateEmployeeOfficeRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'name' => ['string', 'max:255'],
-            'location' => ['string', 'max:255'],
+            'name' => ['string', 'min:1', 'max:255'],
+            'location' => ['string', 'min:1', 'max:255'],
         ];
     }
 }

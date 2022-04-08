@@ -16,7 +16,7 @@ class CreateFeedbackTable extends Migration
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
             $table->string('client')->nullable();
-            $table->unsignedSmallInteger('raiting');
+            $table->unsignedSmallInteger('rating');
             $table->text('advantages')->nullable();
             $table->text('disadvantages')->nullable();
             $table->text('comment')->nullable();

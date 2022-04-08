@@ -15,8 +15,8 @@ class CreatePermissionsPositions extends Migration
     {
         Schema::create('permissions_positions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('permission_id');
-            $table->unsignedBigInteger('position_id');
+            $table->foreignId('permission_id');
+            $table->foreignId('position_id');
             $table->timestamps();
 
             $table->foreign('permission_id')

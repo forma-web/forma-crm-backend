@@ -15,15 +15,8 @@ class CreateEmployeeDepartmentsTable extends Migration
     {
         Schema::create('employee_departments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('office_id');
             $table->string('name');
             $table->timestamps();
-
-            $table->foreign('office_id')
-                ->references('id')
-                ->on('employee_offices')
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
         });
     }
 

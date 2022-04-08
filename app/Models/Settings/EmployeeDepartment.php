@@ -14,13 +14,5 @@ class EmployeeDepartment extends Model
      */
     protected $fillable = [
         'name',
-        'office_id',
-    ];
-
-    /**
-     * @var string[]
-     */
-    protected $casts = [
-        'office_id' => 'integer',
     ];
 }

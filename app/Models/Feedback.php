@@ -14,7 +14,7 @@ class Feedback extends Model
      */
     protected $fillable = [
         'client',
-        'raiting',
+        'rating',
         'advantages',
         'disadvantages',
         'comment',
@@ -24,6 +24,6 @@ class Feedback extends Model
      * @var string[]
      */
     protected $casts = [
-      'raiting' => 'integer',
+      'rating' => 'integer',
     ];
 }
