@@ -28,7 +28,6 @@ class CreateLeadsTable extends Migration
             $table->text('wishes')->nullable();
             $table->boolean('is_important')->default(false);
             $table->boolean('is_repeated')->default(false);
-            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
 
             $table->foreign('manager_id')

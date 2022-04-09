@@ -37,14 +37,13 @@ Route::prefix('/settings')->group(function () {
         Route::apiResource('/offices', EmployeeOfficeController::class);
         Route::apiResource('/permissions', EmployeePermissionController::class);
         Route::apiResource('/positions', EmployeePositionController::class);
-        Route::match(['get', 'head'],'/positions/{position}/permissions',[EmployeePositionController::class, 'showPermissions']);
     });
 
 });
 
 Route::prefix('/auth')->group(function () {
-    Route::post('/registration', RegistrationController::class);
-    Route::post('/login', LoginController::class);
+    Route::post('/registration', RegistrationController::class)->name('auth.registration');
+    Route::post('/login', LoginController::class)->name('auth.login');
 });
 
 Route::apiResource('/feedback', FeedbackController::class);

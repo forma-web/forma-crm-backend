@@ -46,15 +46,6 @@ class EmployeePositionController extends SettingsController
     }
 
     /**
-     * @param $id
-     * @return \App\Http\Resources\Settings\EmployeePositionResource
-     */
-    public function showPermissions($id): EmployeePositionResource
-    {
-        return new EmployeePositionResource($this->repository->getPositionPermissions($id));
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param \App\Http\Requests\Settings\StoreEmployeePositionRequest $request

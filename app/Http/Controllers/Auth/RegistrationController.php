@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Resources\EmployeeResource;
 use App\Models\Employee;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 
 class RegistrationController extends Controller
@@ -28,6 +29,8 @@ class RegistrationController extends Controller
         );
 
         $token = $newEmployee->createToken('auth-token', $credentials->get('device'))->plainTextToken;
+
+        event(new Registered($newEmployee));
 
         return (new EmployeeResource($newEmployee))->additional([
             'token' => $token,

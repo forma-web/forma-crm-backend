@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Mail\Auth\EmailVerification;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,6 +32,12 @@ class AppServiceProvider extends ServiceProvider
             return $this->replace([
                 $key => $fn($value)
             ]);
+        });
+
+        // TODO: define a method in another file
+        VerifyEmail::toMailUsing(function ($notifiable, $url) {
+            return (new EmailVerification($notifiable, $url))
+                ->to($notifiable->email);
         });
     }
 }

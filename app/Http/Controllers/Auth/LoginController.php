@@ -20,7 +20,7 @@ class LoginController extends Controller
         $credentials = collect($request->validated());
         $mainCredentials = $credentials->except('device')->all();
 
-        if (!auth()->attempt($mainCredentials))
+        if (! auth()->attempt($mainCredentials))
             abort(Response::HTTP_FORBIDDEN);
 
         $token = auth()->user()->createToken('auth-token', $credentials->get('device'))->plainTextToken;

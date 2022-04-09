@@ -28,6 +28,7 @@ class CreateEmployeesTable extends Migration
             $table->string('email');
             $table->enum('sex', SexEnum::values());
             $table->string('password');
+            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
 
             $table->foreign('position_id')
