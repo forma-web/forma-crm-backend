@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\DeviceEnum;
 use App\Enums\SexEnum;
+use App\Notifications\EmailVerificationNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -68,5 +69,10 @@ class Employee extends Authenticatable implements MustVerifyEmail
         ]);
 
         return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new EmailVerificationNotification());
     }
 }

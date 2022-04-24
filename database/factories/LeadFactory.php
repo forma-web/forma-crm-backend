@@ -15,10 +15,10 @@ class LeadFactory extends Factory
     public function definition()
     {
         $sex = $this->randomSex();
-        $fakerSex = $sex == SexEnum::MAN ? 'male' : 'female';
+//        $fakerSex = $sex == SexEnum::MAN ? 'male' : 'female';
 
         return [
-            'first_name' => $this->faker->firstName($fakerSex),
+            'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'sex' => $sex,
             'company' => $this->faker->company(),

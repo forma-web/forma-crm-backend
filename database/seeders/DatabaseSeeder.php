@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Employee;
 use App\Models\Feedback;
+use App\Models\Lead;
 use Database\Seeders\Settings\EmployeeDepartmentSeeder;
 use Database\Seeders\Settings\EmployeeOfficeSeeder;
 use Database\Seeders\Settings\EmployeePermissionSeeder;
@@ -30,11 +31,16 @@ class DatabaseSeeder extends Seeder
             EmployeePermissionSeeder::class,
         ]);
 
-        Feedback::factory()->count(50)->create();
-        Employee::factory()->count(1)->create([
-            'position_id' => 1,
-            'department_id' => 1,
-            'office_id' => 1,
-        ]);
+//        Feedback::factory()->count(50)->create();
+//        Employee::factory()->count(1)->create([
+//            'position_id' => 1,
+//            'department_id' => 1,
+//            'office_id' => 1,
+//        ]);
+//        Lead::factory()->count(10)->create([
+//            'manager_id' => 1,
+//            'status_id' => 1,
+//            'source_id' => 1,
+//        ]);
     }
 }

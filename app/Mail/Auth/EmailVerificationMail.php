@@ -7,7 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class EmailVerification extends Mailable
+class EmailVerificationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -43,6 +43,7 @@ class EmailVerification extends Mailable
             ->subject('Подтверждение электронной почты')
             ->view('mails.verification')
             ->with('username', $this->employee->first_name)
-            ->with('verificationUrl', $this->verificationUrl);
+            ->with('verificationUrl', $this->verificationUrl)
+            ->to($this->employee->email);
     }
 }
