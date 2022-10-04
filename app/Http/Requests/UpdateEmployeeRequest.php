@@ -27,9 +27,7 @@ class UpdateEmployeeRequest extends BaseFormRequest
             'phone' => ['string', 'min:1', 'max:255'],
             'email' => ['string', 'email', 'min:1', 'max:255', 'unique:employees'],
             'sex' => [new Enum(SexEnum::class)],
-            'device' => [new Enum(DeviceEnum::class)],
             'password' => ['string', 'min:6', 'max:255'],
-            'password_confirmation' => ['required_with:password', 'string', 'same:password'],
         ];
     }
 }

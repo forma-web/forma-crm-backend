@@ -16,7 +16,6 @@ class LoginEmployeeRequest extends BaseFormRequest
     {
         return [
             'email' => ['required', 'string', 'email', 'min:1', 'max:255', 'exists:employees'],
-            'device' => ['required', new Enum(DeviceEnum::class)],
             'password' => ['required', 'string', 'min:6', 'max:255'],
         ];
     }

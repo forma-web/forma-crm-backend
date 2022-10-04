@@ -44,8 +44,8 @@ class Employee extends Authenticatable implements JWTSubject
     protected $casts = [
         'birth_date' => 'date',
         'hire_date' => 'date',
+        'dismissal_date' => 'datetime',
         'sex' => SexEnum::class,
-        'email_verified_at' => 'datetime',
     ];
 
     public function sendEmailWithPassword(string $password): void

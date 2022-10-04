@@ -37,6 +37,22 @@ class DatabaseSeeder extends Seeder
             'department_id' => 1,
             'office_id' => 1,
         ]);
+
+        Employee::create([
+            'position_id' => 1,
+            'department_id' => 1,
+            'office_id' => 1,
+            'first_name' => 'Admin',
+            'last_name' => 'Admin',
+            'middle_name' => 'Admin',
+            'birth_date' => '1990-01-01',
+            'hire_date' => '2020-01-01',
+            'email' => 'tes@test.com',
+            'phone' => '123456789',
+            'sex' => 'M',
+            'password' => \Hash::make('password'),
+        ]);
+
 //        Lead::factory()->count(10)->create([
 //            'manager_id' => 1,
 //            'status_id' => 1,

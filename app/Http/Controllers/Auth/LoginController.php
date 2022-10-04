@@ -20,19 +20,17 @@ class LoginController extends Controller
      */
     public function login(LoginEmployeeRequest $request): EmployeeResource
     {
-        $credentials = collect($request->validated());
-        $mainCredentials = $credentials->except('device')->all();
+        /** @var string|false $token */
+        $token = auth()->attempt($request->validated());
 
-        if (! auth()->attempt($mainCredentials))
-            abort(ResponseCodes::HTTP_FORBIDDEN);
+        if (!$token)
+            abort(response()->json([
+                'message' => 'Invalid credentials',
+            ], ResponseCodes::HTTP_UNAUTHORIZED));
 
-        if ($request->hasSession()) {
-            $request->session()->put('auth.password_confirmed_at', time());
-        }
-
-        $request->session()->regenerate();
-
-        return new EmployeeResource(auth()->user());
+        return (new EmployeeResource(auth()->user()))->additional([
+            'meta' => $this->tokenConfiguration($token)
+        ]);
     }
 
     /**
@@ -45,10 +43,15 @@ class LoginController extends Controller
     {
         auth()->logout();
 
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
         return response()->noContent();
+    }
+
+    private function tokenConfiguration($token): array
+    {
+        return [
+            'token_type' => 'Bearer',
+            'token_expires_in' => auth()->factory()->getTTL() * 60,
+            'access_token' => $token,
+        ];
     }
 }

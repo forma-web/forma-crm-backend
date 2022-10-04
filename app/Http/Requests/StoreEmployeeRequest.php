@@ -27,9 +27,7 @@ class StoreEmployeeRequest extends BaseFormRequest
             'phone' => ['required', 'string', 'min:1', 'max:255'],
             'email' => ['required', 'string', 'email', 'min:1', 'max:255', 'unique:employees'],
             'sex' => ['required', new Enum(SexEnum::class)],
-            'device' => ['required', new Enum(DeviceEnum::class)],
             'password' => ['required', 'string', 'min:6', 'max:255'],
-            'password_confirmation' => ['required', 'string', 'same:password'],
         ];
     }
 }

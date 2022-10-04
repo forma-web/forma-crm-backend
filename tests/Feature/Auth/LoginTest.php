@@ -38,7 +38,6 @@ class LoginTest extends TestCase
         $this->postJson(route('auth.login'), [
             'email' => $employee->email,
             'password' => self::DEFAULT_PASSWORD,
-            'device' => 'Web',
         ]);
 
         $this->assertAuthenticatedAs($employee);
@@ -52,7 +51,6 @@ class LoginTest extends TestCase
             ->postJson(route('auth.login'), [
                 'email' => $employee->email,
                 'password' => 'wrong-password',
-                'device' => 'Web',
             ]);
 
         $response->assertForbidden();
@@ -65,7 +63,6 @@ class LoginTest extends TestCase
             ->postJson(route('auth.login'), [
                 'email' => 'doesnt-exist-email',
                 'password' => 'wrong-password',
-                'device' => 'Web',
             ]);
 
         $response->assertUnprocessable();

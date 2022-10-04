@@ -18,19 +18,15 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/auth')->group(function () {
 
     Route::post('/login', [LoginController::class, 'login'])->name('auth.login');
-    Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 
-//    Route::middleware('auth')->group(function () {
-//        Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
-//            ->middleware('signed')
-//            ->name('verification.verify');
-//
-//        Route::get('/email/resend', [VerificationController::class, 'resend'])
-//            ->name('verification.resend');
-//    });
-
+    Route::middleware('auth')->group(function () {
+        Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
+    });
 });
 
+Route::middleware('auth')->group(function () {
+    Route::apiResource('/employees', EmployeeController::class);
+});
 
 //Route::prefix('/settings')->group(function () {
 //
@@ -49,5 +45,5 @@ Route::prefix('/auth')->group(function () {
 //});
 //
 //Route::apiResource('/feedback', FeedbackController::class);
-Route::apiResource('/employees', EmployeeController::class);
+
 //Route::apiResource('/leads', LeadController::class);

@@ -60,22 +60,12 @@ class EmployeeController extends Controller
         $newEmployee = Employee::create(
             $credentials
                 ->replaceByKey('password', fn ($p) => Hash::make($p))
-                ->except(['device'])
                 ->all()
         );
 
-
-        $token = auth()->login($newEmployee);
-
         $newEmployee->sendEmailWithPassword($password);
 
-        return (new EmployeeResource($newEmployee))
-            ->additional([
-                'meta' => [
-                    'type' => 'Bearer',
-                    'token' => $token,
-                ],
-            ]);
+        return new EmployeeResource($newEmployee);
     }
 
     /**

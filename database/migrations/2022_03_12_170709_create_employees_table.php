@@ -24,11 +24,11 @@ return new class extends Migration
             $table->string('middle_name')->nullable();
             $table->date('birth_date');
             $table->date('hire_date');
+            $table->date('dismissal_date')->nullable();
             $table->string('phone');
             $table->string('email');
             $table->enum('sex', SexEnum::values());
             $table->string('password');
-            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
 
             $table->foreign('position_id')
