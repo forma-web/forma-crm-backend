@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateEmployeeRequest;
 use App\Http\Resources\EmployeeResource;
 use App\Models\Employee;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
 {
@@ -53,7 +54,28 @@ class EmployeeController extends Controller
      */
     public function store(StoreEmployeeRequest $request): EmployeeResource
     {
-        return new EmployeeResource(Employee::create($request->validated()));
+        $credentials = collect($request->validated());
+        $password = $credentials->get('password');
+
+        $newEmployee = Employee::create(
+            $credentials
+                ->replaceByKey('password', fn ($p) => Hash::make($p))
+                ->except(['device'])
+                ->all()
+        );
+
+
+        $token = auth()->login($newEmployee);
+
+        $newEmployee->sendEmailWithPassword($password);
+
+        return (new EmployeeResource($newEmployee))
+            ->additional([
+                'meta' => [
+                    'type' => 'Bearer',
+                    'token' => $token,
+                ],
+            ]);
     }
 
     /**

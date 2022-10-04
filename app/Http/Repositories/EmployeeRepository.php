@@ -3,7 +3,7 @@
 namespace App\Http\Repositories;
 
 use App\Models\Employee;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 
 class EmployeeRepository extends BaseRepository
@@ -17,11 +17,22 @@ class EmployeeRepository extends BaseRepository
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getAllEmployees(): Collection
+    public function getAllEmployees(): LengthAwarePaginator
     {
-        return $this->model->all();
+        return $this->model
+            ->select([
+                'employees.*',
+                'employee_offices.name as office',
+                'employee_departments.name as department',
+                'employee_positions.name as position',
+            ])
+            ->leftJoin('employee_offices', 'employees.office_id', '=', 'employee_offices.id')
+            ->leftJoin('employee_departments', 'employees.department_id', '=', 'employee_departments.id')
+            ->leftJoin('employee_positions', 'employees.position_id', '=', 'employee_positions.id')
+            ->orderBy('id')
+            ->paginate();
     }
 
     /**

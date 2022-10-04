@@ -22,10 +22,10 @@ class EmployeeDepartmentSeeder extends Seeder
                 'name' => 'Отдел разработки',
             ],
             [
-                'name' => 'Менеджеры',
+                'name' => 'Директоры',
             ],
             [
-                'name' => 'Менеджеры',
+                'name' => 'Администраторы',
             ],
         ];
 

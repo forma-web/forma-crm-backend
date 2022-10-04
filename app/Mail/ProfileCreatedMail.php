@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Mail\Auth;
+namespace App\Mail;
 
 use App\Models\Employee;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class EmailVerificationMail extends Mailable
+class ProfileCreatedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -19,17 +19,17 @@ class EmailVerificationMail extends Mailable
     /**
      * @var string
      */
-    private string $verificationUrl;
+    private string $password;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Employee $employee, string $verificationUrl)
+    public function __construct(Employee $employee, string $password)
     {
         $this->employee = $employee;
-        $this->verificationUrl = $verificationUrl;
+        $this->password = $password;
     }
 
     /**
@@ -40,10 +40,9 @@ class EmailVerificationMail extends Mailable
     public function build()
     {
         return $this
-            ->subject('Подтверждение электронной почты')
-            ->view('mails.verification')
+            ->subject('Добро пожаловать в систему')
+            ->view('mails.profile_created')
             ->with('username', $this->employee->first_name)
-            ->with('verificationUrl', $this->verificationUrl)
-            ->to($this->employee->email);
+            ->with('password', $this->password);
     }
 }

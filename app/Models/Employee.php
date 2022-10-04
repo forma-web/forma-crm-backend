@@ -2,20 +2,16 @@
 
 namespace App\Models;
 
-use App\Enums\DeviceEnum;
 use App\Enums\SexEnum;
-use App\Notifications\EmailVerificationNotification;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\ProfileCreatedNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
-use Laravel\Sanctum\HasApiTokens;
-use Laravel\Sanctum\NewAccessToken;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
-class Employee extends Authenticatable implements MustVerifyEmail
+class Employee extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable;
 
     /**
      * @var string[]
@@ -52,27 +48,28 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-
-    /**
-     * @param string $name
-     * @param \App\Enums\DeviceEnum $device
-     * @param \Illuminate\Http\Request $request
-     * @return \Laravel\Sanctum\NewAccessToken
-     */
-    public function createToken(string $name, string $device): NewAccessToken
+    public function sendEmailWithPassword(string $password): void
     {
-        $token = $this->tokens()->create([
-            'name' => $name,
-            'token' => hash('sha256', $plainTextToken = Str::random(40)),
-            'device' => DeviceEnum::from($device),
-            'ip' => \request()->ip(),
-        ]);
-
-        return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
+        $this->notify(new ProfileCreatedNotification($password));
     }
 
-    public function sendEmailVerificationNotification()
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
     {
-        $this->notify(new EmailVerificationNotification());
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

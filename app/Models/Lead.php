@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Enums\SexEnum;
+use App\Models\Settings\LeadSource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Lead extends Model
 {
@@ -35,4 +37,12 @@ class Lead extends Model
         'is_important' => 'boolean',
         'is_repeated' => 'boolean',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sources(): BelongsTo
+    {
+        return $this->belongsTo(LeadSource::class, 'source_id');
+    }
 }

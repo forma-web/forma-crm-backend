@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Mail\Auth\EmailVerificationMail;
-use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,7 +12,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }
@@ -24,11 +22,13 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        // TODO: define a method in another file
-        Collection::macro('replaceByKey', function (mixed $key, callable $fn): Collection {
+        Collection::macro('replaceByKey', function (string $key, callable $fn): Collection
+        {
+            /** @var Collection $this */
             $value = $this->get($key);
+
             return $this->replace([
                 $key => $fn($value)
             ]);

@@ -45,7 +45,7 @@
     {{--  Head  --}}
     <tr>
         <td class="fixed-block">
-            <img class="logo" src="https://forma-web.ru/assets/logo.png" alt="Chemodan Logo">
+            <img class="logo" src="https://ch-tours.ru/assets/favicons/android-chrome-512x512.png" alt="Chemodan Logo">
         </td>
     </tr>
     {{--  Body  --}}
@@ -53,14 +53,13 @@
         <td class="auto-block">
             <h1>Привет, {{ $username }}!</h1>
             <span>
-                    Для завершения регистрации сотрудника, пожалуйста,
-                    подтвердите свой адрес электронной почты.
+                    Ваш аккаунт был успешно создан. Пароль для входа: {{ $password }}.
                 </span>
         </td>
     </tr>
     <tr>
         <td class="auto-block">
-            <a href="{{ $verificationUrl }}">Подтвердить почту</a>
+            <a href="{{ url('/') }}">Войти</a>
         </td>
     </tr>
     {{--  Footer  --}}

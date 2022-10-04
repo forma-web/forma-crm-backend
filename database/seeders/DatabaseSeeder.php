@@ -32,11 +32,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
 //        Feedback::factory()->count(50)->create();
-//        Employee::factory()->count(1)->create([
-//            'position_id' => 1,
-//            'department_id' => 1,
-//            'office_id' => 1,
-//        ]);
+        Employee::factory()->count(100)->create([
+            'position_id' => 1,
+            'department_id' => 1,
+            'office_id' => 1,
+        ]);
 //        Lead::factory()->count(10)->create([
 //            'manager_id' => 1,
 //            'status_id' => 1,
