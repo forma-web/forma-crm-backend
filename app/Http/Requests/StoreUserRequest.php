@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Enums\SexEnum;
 use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\Rules\Password;
 
 final class StoreUserRequest extends BaseFormRequest
 {
@@ -23,7 +24,7 @@ final class StoreUserRequest extends BaseFormRequest
             'birth_date' => ['date'],
             'sex' => [new Enum(SexEnum::class)],
             'avatar' => ['string', 'max:255'],
-            'password' => ['required', 'string', 'min:6', 'max:255'],
+            'password' => ['required', 'string', Password::min(6)],
         ];
     }
 }

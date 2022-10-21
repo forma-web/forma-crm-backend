@@ -18,7 +18,7 @@ final class LoginController extends AuthController
         $credentials = $request->validated();
 
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], ResponseCodes::HTTP_UNAUTHORIZED);
+            return response()->json(['error' => __('auth.failed')], ResponseCodes::HTTP_UNAUTHORIZED);
         }
 
         return (new UserResource(auth()->user()))->additional([

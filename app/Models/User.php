@@ -2,49 +2,59 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+final class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     /**
      * @var string[]
      */
     protected $fillable = [
-        'manager_id',
-        'status_id',
-        'source_id',
         'first_name',
         'last_name',
         'middle_name',
+        'email',
+        'phone',
+        'birth_date',
         'sex',
-        'company',
-        'preferences',
-        'wishes',
-        'is_important',
+        'avatar',
+        'password',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
+     * @var string[]
      */
     protected $hidden = [
+        'email_verified_at',
         'password',
-        'remember_token',
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
+     * @var string[]
      */
     protected $casts = [
+        'birth_date' => 'date',
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * @return array
+     */
+    public function getJWTCustomClaims(): array
+    {
+        return [];
+    }
 }
