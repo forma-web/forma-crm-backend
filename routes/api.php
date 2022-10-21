@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegistrationController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,12 +19,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/auth')->group(function () {
 
-    Route::post('/login', LoginController::class)->name('auth.login');
+    Route::post('/login', [LoginController::class, 'login'])->name('auth.login');
     Route::post('/registration', RegistrationController::class)->name('auth.registration');
 
-    Route::middleware('auth')
-        ->post('/logout', LogoutController::class)
-        ->name('auth.logout');
+    Route::middleware('auth')->group(function () {
+        Route::get('/user', [LoginController::class, 'showAuthenticatedUser'])->name('auth.user');
+        Route::post('/logout', LogoutController::class)->name('auth.logout');
+    });
+
+});
+
+Route::middleware('auth')->group(function () {
+    Route::apiResource('/users', UserController::class)->except(['create', 'destroy']);
 });
 
 //Route::prefix('/settings')->group(function () {

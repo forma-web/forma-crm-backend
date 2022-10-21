@@ -13,7 +13,7 @@ final class LoginController extends AuthController
      * @param \App\Http\Requests\LoginRequest $request
      * @return \App\Http\Resources\UserResource|\Illuminate\Http\JsonResponse
      */
-    public function __invoke(LoginRequest $request): UserResource|JsonResponse
+    public function login(LoginRequest $request): UserResource|JsonResponse
     {
         $credentials = $request->validated();
 
@@ -24,5 +24,13 @@ final class LoginController extends AuthController
         return (new UserResource(auth()->user()))->additional([
             'meta' => $this->withToken($token),
         ]);
+    }
+
+    /**
+     * @return \App\Http\Resources\UserResource
+     */
+    public function showAuthenticatedUser(): UserResource
+    {
+        return new UserResource(auth()->user());
     }
 }
