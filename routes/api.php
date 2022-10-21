@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegistrationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,15 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/auth')->group(function () {
 
-    Route::post('/login', [LoginController::class, 'login'])->name('auth.login');
+    Route::post('/login', LoginController::class)->name('auth.login');
+    Route::post('/registration', RegistrationController::class)->name('auth.registration');
 
-    Route::middleware('auth')->group(function () {
-        Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
-    });
-});
-
-Route::middleware('auth')->group(function () {
-    Route::apiResource('/employees', EmployeeController::class);
+    Route::middleware('auth')
+        ->post('/logout', LogoutController::class)
+        ->name('auth.logout');
 });
 
 //Route::prefix('/settings')->group(function () {

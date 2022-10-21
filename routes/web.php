@@ -1,20 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegistrationController;
-use App\Http\Controllers\Auth\VerificationController;
-use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\FeedbackController;
-use App\Http\Controllers\LeadController;
-use App\Http\Controllers\Settings\EmployeeDepartmentController;
-use App\Http\Controllers\Settings\EmployeeOfficeController;
-use App\Http\Controllers\Settings\EmployeePermissionController;
-use App\Http\Controllers\Settings\EmployeePositionController;
-use App\Http\Controllers\Settings\LeadSourceController;
-use App\Http\Controllers\Settings\LeadStatusController;
-
 use Illuminate\Support\Facades\Route;
-use Laravel\Sanctum\Http\Controllers\CsrfCookieController;
 
 /*
 |--------------------------------------------------------------------------
