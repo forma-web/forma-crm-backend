@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\SexEnum;
+use App\Enums\UserSexEnum;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\Rules\Password;
 
 final class UpdateUserRequest extends BaseFormRequest
 {
@@ -22,9 +23,9 @@ final class UpdateUserRequest extends BaseFormRequest
             'email' => ['string', 'email', 'max:255', Rule::unique('users')->ignore(auth()->id())],
             'phone' => ['string', 'max:255'],
             'birth_date' => ['date'],
-            'sex' => [new Enum(SexEnum::class)],
+            'sex' => [new Enum(UserSexEnum::class)],
             'avatar' => ['string', 'max:255'],
-            'password' => ['string', 'min:6', 'max:255'],
+            'password' => ['string', 'string', Password::min(6), 'max:255'],
         ];
     }
 }

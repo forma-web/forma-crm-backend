@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Repositories\UserRepository;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
-use App\Models\User;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 final class UserController extends Controller

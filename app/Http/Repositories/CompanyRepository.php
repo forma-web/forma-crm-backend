@@ -18,9 +18,9 @@ final class CompanyRepository extends Repository
         return Company::class;
     }
 
-    public function getAllCompanies(): LengthAwarePaginator
+    public function getUserCompanies()
     {
-        return $this->model->paginate();
+        return auth()->user()->with('companies')->get();
     }
 
     /**

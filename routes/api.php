@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegistrationController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,7 @@ Route::prefix('/auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::apiResource('/users', UserController::class)->except(['create', 'destroy']);
+    Route::apiResource('/companies', CompanyController::class)->except(['destroy']);
 });
 
 //Route::prefix('/settings')->group(function () {

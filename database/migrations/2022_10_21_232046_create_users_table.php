@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\SexEnum;
+use App\Enums\UserSexEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->date('birth_date')->nullable();
-            $table->enum('sex', SexEnum::values())->nullable();
+            $table->enum('sex', UserSexEnum::values())->nullable();
             $table->string('avatar')->nullable();
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();

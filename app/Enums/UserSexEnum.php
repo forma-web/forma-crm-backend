@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum SexEnum: string
+enum UserSexEnum: string
 {
     use Arrayable;
 

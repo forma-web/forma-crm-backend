@@ -31,7 +31,7 @@ final class CompanyController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        return CompanyResource::collection($this->repository->getAllCompanies());
+        return CompanyResource::collection($this->repository->getUserCompanies());
     }
 
     /**

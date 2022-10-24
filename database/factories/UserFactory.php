@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\SexEnum;
+use App\Enums\UserSexEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,7 +19,7 @@ final class UserFactory extends Factory
     public function definition()
     {
         $gender = rand(0, 1) == 0 ? 'male' : 'female';
-        $genderEnum = $gender === 'male' ? SexEnum::MAN : SexEnum::WOMAN;
+        $genderEnum = $gender === 'male' ? UserSexEnum::MAN : UserSexEnum::WOMAN;
 
         return [
             'first_name' => fake()->firstName($gender),
