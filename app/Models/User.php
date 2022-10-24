@@ -65,6 +65,6 @@ final class User extends Authenticatable implements JWTSubject
      */
     public function companies(): BelongsToMany
     {
-        return $this->belongsToMany(Company::class)->using(CompanyUser::class);
+        return $this->belongsToMany(Company::class, CompanyUser::class);
     }
 }

@@ -20,7 +20,9 @@ final class CompanyRepository extends Repository
 
     public function getUserCompanies()
     {
-        return auth()->user()->with('companies')->get();
+//        dd(auth()->user()->companies()->get());
+        return auth()->user()->companies()->get();
+//        return auth()->user()->with('companies')->get();
     }
 
     /**

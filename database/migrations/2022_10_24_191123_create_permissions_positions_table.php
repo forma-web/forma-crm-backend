@@ -15,7 +15,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('permissions_positions', function (Blueprint $table) {
+        Schema::create('permission_position', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Permission::class);
             $table->foreignIdFor(Position::class);
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissions_positions');
+        Schema::dropIfExists('permission_position');
     }
 };
