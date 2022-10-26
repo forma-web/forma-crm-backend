@@ -2,56 +2,35 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginEmployeeRequest;
-use App\Http\Resources\EmployeeResource;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Http\Requests\LoginRequest;
+use App\Http\Resources\UserResource;
+use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
-
-class LoginController extends Controller
+final class LoginController extends AuthController
 {
     /**
-     * Handle the incoming request.
-     *
-     * @param \App\Http\Requests\LoginEmployeeRequest $request
-     * @return \App\Http\Resources\EmployeeResource
+     * @param \App\Http\Requests\LoginRequest $request
+     * @return \App\Http\Resources\UserResource|\Illuminate\Http\JsonResponse
      */
-    public function login(LoginEmployeeRequest $request): EmployeeResource
+    public function login(LoginRequest $request): UserResource|JsonResponse
     {
-        /** @var string|false $token */
-        $token = auth()->attempt($request->validated());
+        $credentials = $request->validated();
 
-        if (!$token)
-            abort(response()->json([
-                'message' => 'Invalid credentials',
-            ], ResponseCodes::HTTP_UNAUTHORIZED));
+        if (! $token = auth()->attempt($credentials)) {
+            return response()->json(['error' => __('auth.failed')], ResponseCodes::HTTP_UNAUTHORIZED);
+        }
 
-        return (new EmployeeResource(auth()->user()))->additional([
-            'meta' => $this->tokenConfiguration($token)
+        return (new UserResource(auth()->user()))->additional([
+            'meta' => $this->withToken($token),
         ]);
     }
 
     /**
-     * Log the user out of the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\UserResource
      */
-    public function logout(Request $request): Response
+    public function showAuthenticatedUser(): UserResource
     {
-        auth()->logout();
-
-        return response()->noContent();
-    }
-
-    private function tokenConfiguration($token): array
-    {
-        return [
-            'token_type' => 'Bearer',
-            'token_expires_in' => auth()->factory()->getTTL() * 60,
-            'access_token' => $token,
-        ];
+        return new UserResource(auth()->user());
     }
 }

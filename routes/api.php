@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegistrationController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,14 +21,18 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/auth')->group(function () {
 
     Route::post('/login', [LoginController::class, 'login'])->name('auth.login');
+    Route::post('/registration', RegistrationController::class)->name('auth.registration');
 
     Route::middleware('auth')->group(function () {
-        Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
+        Route::get('/user', [LoginController::class, 'showAuthenticatedUser'])->name('auth.user');
+        Route::post('/logout', LogoutController::class)->name('auth.logout');
     });
+
 });
 
 Route::middleware('auth')->group(function () {
-    Route::apiResource('/employees', EmployeeController::class);
+    Route::apiResource('/users', UserController::class)->except(['create', 'destroy']);
+    Route::apiResource('/companies', CompanyController::class)->except(['destroy']);
 });
 
 //Route::prefix('/settings')->group(function () {
