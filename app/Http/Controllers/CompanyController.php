@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CompanyUserTypesEnum;
 use App\Http\Repositories\CompanyRepository;
 use App\Http\Requests\Companies\StoreCompanyRequest;
 use App\Http\Requests\Companies\UpdateCompanyRequest;
@@ -35,46 +36,30 @@ final class CompanyController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \App\Http\Resources\CompanyResource
-     */
-    public function create(StoreCompanyRequest $request)
-    {
-        return new CompanyResource(Company::create($request->validated()));
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\Companies\StoreCompanyRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\CompanyResource
      */
-    public function store(StoreCompanyRequest $request)
+    public function store(StoreCompanyRequest $request): CompanyResource
     {
-        //
+        /** @var \App\Models\User $user */
+        $user = auth()->user();
+
+        $newCompany = $user->companies()->create($request->validated(), ['type' => CompanyUserTypesEnum::OWNER]);
+
+        return new CompanyResource($newCompany);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Companies\Company  $company
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \App\Http\Resources\CompanyResource
      */
-    public function show(Company $company)
+    public function show(int $id): CompanyResource
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Companies\Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Company $company)
-    {
-        //
+        return new CompanyResource($this->repository->getCompanyById($id));
     }
 
     /**

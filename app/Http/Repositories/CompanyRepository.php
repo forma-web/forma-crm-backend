@@ -3,7 +3,8 @@
 namespace App\Http\Repositories;
 
 use App\Models\Companies\Company;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property Company $model
@@ -18,27 +19,25 @@ final class CompanyRepository extends Repository
         return Company::class;
     }
 
-    public function getUserCompanies()
-    {
-//        dd(auth()->user()->companies()->get());
-        return auth()->user()->companies()->get();
-//        return auth()->user()->with('companies')->get();
-    }
-
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getCompanyByPage(): LengthAwarePaginator
+    public function getUserCompanies(): Collection
     {
-        return $this->model->latest()->paginate();
+        /** @var \App\Models\User $user */
+        $user = auth()->user();
+
+        return $user->companies()->select('companies.*', 'company_user.type')->get();
     }
 
     /**
      * @param int $id
-     * @return \App\Models\Companies\Company
+     * @return \Illuminate\Database\Eloquent\Model
      */
-    public function getCompanyById(int $id): Company
+    public function getCompanyById(int $id): Model
     {
-        return $this->model->findOrFail($id);
+        return $this->model
+            ->with('departments', 'offices', 'positions')
+            ->findOrFail($id);
     }
 }

@@ -16,4 +16,11 @@ final class Position extends Model
         'company_id',
         'name',
     ];
+
+    /**
+     * @var string[]
+     */
+    protected $hidden = [
+        'company_id',
+    ];
 }

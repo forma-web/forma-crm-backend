@@ -168,6 +168,10 @@ return [
         'sex' => 'пол',
         'password' => 'пароль',
         'avatar' => 'аватар',
+        // Company
+        'name' => 'название',
+        'inn' => 'ИНН',
+        'address' => 'адрес',
     ],
 
 ];

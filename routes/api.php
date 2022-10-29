@@ -32,7 +32,7 @@ Route::prefix('/auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::apiResource('/users', UserController::class)->except(['create', 'destroy']);
-    Route::apiResource('/companies', CompanyController::class)->except(['destroy']);
+    Route::apiResource('/companies', CompanyController::class)->except(['destroy']);;
 });
 
 //Route::prefix('/settings')->group(function () {

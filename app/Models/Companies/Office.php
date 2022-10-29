@@ -9,8 +9,18 @@ final class Office extends Model
 {
     use HasFactory;
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'company_id',
         'name',
+    ];
+
+    /**
+     * @var string[]
+     */
+    protected $hidden = [
+        'company_id',
     ];
 }
