@@ -7,9 +7,7 @@ use App\Http\Repositories\CompanyRepository;
 use App\Http\Requests\Companies\StoreCompanyRequest;
 use App\Http\Requests\Companies\UpdateCompanyRequest;
 use App\Http\Resources\CompanyResource;
-use App\Models\Companies\Company;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;
 
 final class CompanyController extends Controller
 {
@@ -72,16 +70,14 @@ final class CompanyController extends Controller
      */
     public function update(UpdateCompanyRequest $request, int $id): void
     {
-        $company = $this->repository->getCompanyById($id);
-
-        $company->update($request->validated());
+        $this->repository->getCompanyById($id)->update($request->validated());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Companies\Company  $company
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return void
      */
     public function destroy(int $id): void
     {

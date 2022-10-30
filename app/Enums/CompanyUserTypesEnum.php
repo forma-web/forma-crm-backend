@@ -10,6 +10,3 @@ enum CompanyUserTypesEnum: string
     case INVITED = 'INVITED';
     case CREATED_BY_OWNER = 'CREATED_BY_OWNER';
 }
-{
-
-}
