@@ -9,6 +9,7 @@ use App\Http\Requests\Companies\UpdateCompanyRequest;
 use App\Http\Resources\CompanyResource;
 use App\Models\Companies\Company;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 final class CompanyController extends Controller
 {
@@ -59,19 +60,21 @@ final class CompanyController extends Controller
      */
     public function show(int $id): CompanyResource
     {
-        return new CompanyResource($this->repository->getCompanyById($id));
+        return new CompanyResource($this->repository->getCompanyInfoById($id));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Companies\UpdateCompanyRequest  $request
-     * @param  \App\Models\Companies\Company  $company
-     * @return \Illuminate\Http\Response
+     * @param \App\Http\Requests\Companies\UpdateCompanyRequest $request
+     * @param int $id
+     * @return void
      */
-    public function update(UpdateCompanyRequest $request, Company $company)
+    public function update(UpdateCompanyRequest $request, int $id): void
     {
-        //
+        $company = $this->repository->getCompanyById($id);
+
+        $company->update($request->validated());
     }
 
     /**
@@ -80,8 +83,8 @@ final class CompanyController extends Controller
      * @param  \App\Models\Companies\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy(int $id): void
     {
-        //
+        $this->repository->getCompanyById($id)->delete();
     }
 }

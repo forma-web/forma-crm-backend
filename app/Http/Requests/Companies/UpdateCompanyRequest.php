@@ -15,7 +15,7 @@ final class UpdateCompanyRequest extends BaseFormRequest
     {
         return [
             'name' => ['string', 'max:255'],
-            'inn' => ['string', 'max:255'],
+            'inn' => ['string', 'max:255', 'unique:companies'],
             'address' => ['string', 'max:255'],
         ];
     }

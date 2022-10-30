@@ -36,6 +36,15 @@ final class CompanyRepository extends Repository
      */
     public function getCompanyById(int $id): Model
     {
+        return $this->model->findOrFail($id);
+    }
+
+    /**
+     * @param int $id
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function getCompanyInfoById(int $id): Model
+    {
         return $this->model
             ->with('departments', 'offices', 'positions')
             ->findOrFail($id);
