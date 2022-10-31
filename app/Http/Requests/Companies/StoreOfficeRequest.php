@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Companies;
 
-final class UpdateCompanyRequest extends CompanyFormRequest
+final class StoreOfficeRequest extends CompanyFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -12,9 +12,8 @@ final class UpdateCompanyRequest extends CompanyFormRequest
     public function rules(): array
     {
         return [
-            'name' => ['string', 'max:255'],
-            'inn' => ['string', 'max:255', 'unique:companies'],
-            'address' => ['string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
         ];
     }
 }

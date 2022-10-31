@@ -14,7 +14,7 @@ final class UpdateUserRequest extends BaseFormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'first_name' => ['string', 'max:255'],
