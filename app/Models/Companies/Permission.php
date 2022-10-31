@@ -25,13 +25,6 @@ final class Permission extends Model
     ];
 
     /**
-     * @var string[]
-     */
-    protected $hidden = [
-        'company_id',
-    ];
-
-    /**
      * @var array<string, mixed>
      */
     protected $casts = [

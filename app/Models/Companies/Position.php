@@ -13,7 +13,6 @@ final class Position extends Model
      * @var string[]
      */
     protected $fillable = [
-        'company_id',
         'name',
     ];
 
