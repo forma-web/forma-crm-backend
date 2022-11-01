@@ -13,8 +13,8 @@ final class StoreCompanyRequest extends CompanyFormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'inn' => ['string', 'max:255', 'unique:companies'],
-            'address' => ['string', 'max:255'],
+            'inn' => ['nullable', 'string', 'max:255', 'unique:companies'],
+            'address' => ['nullable', 'string', 'max:255'],
         ];
     }
 }

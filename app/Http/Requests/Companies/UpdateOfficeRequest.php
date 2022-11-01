@@ -12,8 +12,8 @@ final class UpdateOfficeRequest extends CompanyFormRequest
     public function rules(): array
     {
         return [
-            'name' => ['string', 'max:255'],
-            'address' => ['string', 'max:255'],
+            'name' => ['nullable', 'string', 'max:255'],
+            'address' => ['nullable', 'string', 'max:255'],
         ];
     }
 }

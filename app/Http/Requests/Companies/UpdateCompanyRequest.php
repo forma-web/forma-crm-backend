@@ -12,9 +12,9 @@ final class UpdateCompanyRequest extends CompanyFormRequest
     public function rules(): array
     {
         return [
-            'name' => ['string', 'max:255'],
-            'inn' => ['string', 'max:255', 'unique:companies'],
-            'address' => ['string', 'max:255'],
+            'name' => ['nullable', 'string', 'max:255'],
+            'inn' => ['nullable', 'string', 'max:255', 'unique:companies'],
+            'address' => ['nullable', 'string', 'max:255'],
         ];
     }
 }
