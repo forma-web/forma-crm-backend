@@ -2,39 +2,39 @@
 
 namespace App\Http\Repositories;
 
-use App\Models\Companies\Office;
+use App\Models\Companies\Department;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property Office $model
+ * @property Department $model
  */
-final class OfficeRepository extends Repository
+final class DepartmentRepository extends Repository
 {
     /**
      * @inheritDoc
      */
     protected function getModelClass(): string
     {
-        return Office::class;
+        return Department::class;
     }
 
     /**
      * @param int $companyId
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getAllCompanyOffices(int $companyId): Collection
+    public function getAllCompanyDepartment(int $companyId): Collection
     {
         return $this->model->company($companyId)->get();
     }
 
     /**
      * @param int $companyId
-     * @param int $officeId
+     * @param int $departmentId
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function getCompanyOfficeById(int $companyId, int $officeId): Model
+    public function getCompanyDepartmentById(int $companyId, int $departmentId): Model
     {
-        return $this->model->company($companyId)->findOrFail($officeId);
+        return $this->model->company($companyId)->findOrFail($departmentId);
     }
 }

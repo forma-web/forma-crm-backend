@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::apiResource('users', UserController::class)->except(['create', 'destroy']);
     Route::apiResource('companies', CompanyController::class);
     Route::apiResource('companies.offices', OfficeController::class);
+    Route::apiResource('companies.departments', DepartmentController::class);
 });
 
 //Route::prefix('/settings')->group(function () {

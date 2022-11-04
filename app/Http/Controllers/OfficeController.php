@@ -23,6 +23,7 @@ final class OfficeController extends Controller
     {
         $this->repository = $userRepository;
     }
+
     /**
      * Display a listing of the resource.
      *
