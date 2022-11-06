@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Repositories\OfficeRepository;
 use App\Http\Requests\Companies\StoreOfficeRequest;
 use App\Http\Requests\Companies\UpdateOfficeRequest;
 use App\Http\Resources\OfficeResource;
 use App\Models\Companies\Office;
+use App\Repositories\OfficeRepository;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 final class OfficeController extends Controller
 {
     /**
-     * @var \App\Http\Repositories\OfficeRepository
+     * @var \App\Repositories\OfficeRepository
      */
     private OfficeRepository $repository;
 
     /**
-     * @param \App\Http\Repositories\OfficeRepository $userRepository
+     * @param \App\Repositories\OfficeRepository $userRepository
      */
     public function __construct(OfficeRepository $userRepository)
     {

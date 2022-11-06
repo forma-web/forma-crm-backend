@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Repositories\UserRepository;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 final class UserController extends Controller
 {
     /**
-     * @var \App\Http\Repositories\UserRepository
+     * @var \App\Repositories\UserRepository
      */
     private UserRepository $repository;
 
     /**
-     * @param \App\Http\Repositories\UserRepository $userRepository
+     * @param \App\Repositories\UserRepository $userRepository
      */
     public function __construct(UserRepository $userRepository)
     {

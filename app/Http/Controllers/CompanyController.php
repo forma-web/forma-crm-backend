@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CompanyUserTypesEnum;
-use App\Http\Repositories\CompanyRepository;
 use App\Http\Requests\Companies\StoreCompanyRequest;
 use App\Http\Requests\Companies\UpdateCompanyRequest;
 use App\Http\Resources\CompanyResource;
+use App\Repositories\CompanyRepository;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 final class CompanyController extends Controller
 {
     /**
-     * @var \App\Http\Repositories\CompanyRepository
+     * @var \App\Repositories\CompanyRepository
      */
     private CompanyRepository $repository;
 
     /**
-     * @param \App\Http\Repositories\CompanyRepository $companyRepository
+     * @param \App\Repositories\CompanyRepository $companyRepository
      */
     public function __construct(CompanyRepository $companyRepository)
     {
@@ -45,7 +45,9 @@ final class CompanyController extends Controller
         /** @var \App\Models\User $user */
         $user = auth()->user();
 
-        $newCompany = $user->companies()->create($request->validated(), ['type' => CompanyUserTypesEnum::OWNER]);
+        $newCompany = $user->companies()->create($request->validated(), [
+            'type' => CompanyUserTypesEnum::OWNER
+        ]);
 
         return new CompanyResource($newCompany);
     }

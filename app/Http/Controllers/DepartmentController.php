@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Repositories\DepartmentRepository;
 use App\Http\Requests\Companies\StoreDepartmentRequest;
 use App\Http\Requests\Companies\UpdateDepartmentRequest;
 use App\Http\Resources\DepartmentResource;
 use App\Models\Companies\Department;
-use Illuminate\Http\Request;
+use App\Repositories\DepartmentRepository;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 final class DepartmentController extends Controller
 {
     /**
-     * @var \App\Http\Repositories\DepartmentRepository
+     * @var \App\Repositories\DepartmentRepository
      */
     private DepartmentRepository $repository;
 
     /**
-     * @param \App\Http\Repositories\DepartmentRepository $userRepository
+     * @param \App\Repositories\DepartmentRepository $userRepository
      */
     public function __construct(DepartmentRepository $userRepository)
     {
