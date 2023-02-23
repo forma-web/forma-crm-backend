@@ -14,18 +14,18 @@ final class UpdateUserRequest extends BaseFormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'first_name' => ['string', 'max:255'],
-            'last_name' => ['string', 'max:255'],
-            'middle_name' => ['string', 'max:255'],
-            'email' => ['string', 'email', 'max:255', Rule::unique('users')->ignore(auth()->id())],
-            'phone' => ['string', 'max:255'],
-            'birth_date' => ['date'],
-            'sex' => [new Enum(UserSexEnum::class)],
-            'avatar' => ['string', 'max:255'],
-            'password' => ['string', 'string', Password::min(6), 'max:255'],
+            'first_name' => ['nullable', 'string', 'max:255'],
+            'last_name' => ['nullable', 'string', 'max:255'],
+            'middle_name' => ['nullable', 'string', 'max:255'],
+            'email' => ['nullable', 'string', 'email', 'max:255', Rule::unique('users')->ignore(auth()->id())],
+            'phone' => ['nullable', 'string', 'max:255'],
+            'birth_date' => ['nullable', 'date'],
+            'sex' => ['nullable', new Enum(UserSexEnum::class)],
+            'avatar' => ['nullable', 'string', 'max:255'],
+            'password' => ['nullable', 'string', 'string', Password::min(6), 'max:255'],
         ];
     }
 }

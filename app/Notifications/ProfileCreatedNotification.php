@@ -8,7 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class ProfileCreatedNotification extends Notification
+final class ProfileCreatedNotification extends Notification
 {
     use Queueable;
 

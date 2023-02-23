@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Repositories\CompanyRepository;
+use App\Enums\CompanyUserTypesEnum;
 use App\Http\Requests\Companies\StoreCompanyRequest;
 use App\Http\Requests\Companies\UpdateCompanyRequest;
 use App\Http\Resources\CompanyResource;
-use App\Models\Companies\Company;
+use App\Repositories\CompanyRepository;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 final class CompanyController extends Controller
 {
     /**
-     * @var \App\Http\Repositories\CompanyRepository
+     * @var \App\Repositories\CompanyRepository
      */
     private CompanyRepository $repository;
 
     /**
-     * @param \App\Http\Repositories\CompanyRepository $companyRepository
+     * @param \App\Repositories\CompanyRepository $companyRepository
      */
     public function __construct(CompanyRepository $companyRepository)
     {
@@ -35,68 +35,54 @@ final class CompanyController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \App\Http\Resources\CompanyResource
-     */
-    public function create(StoreCompanyRequest $request)
-    {
-        return new CompanyResource(Company::create($request->validated()));
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\Companies\StoreCompanyRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\CompanyResource
      */
-    public function store(StoreCompanyRequest $request)
+    public function store(StoreCompanyRequest $request): CompanyResource
     {
-        //
+        /** @var \App\Models\User $user */
+        $user = auth()->user();
+
+        $newCompany = $user->companies()->create($request->validated(), [
+            'type' => CompanyUserTypesEnum::OWNER
+        ]);
+
+        return new CompanyResource($newCompany);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Companies\Company  $company
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \App\Http\Resources\CompanyResource
      */
-    public function show(Company $company)
+    public function show(int $id): CompanyResource
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Companies\Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Company $company)
-    {
-        //
+        return new CompanyResource($this->repository->getCompanyInfoById($id));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Companies\UpdateCompanyRequest  $request
-     * @param  \App\Models\Companies\Company  $company
-     * @return \Illuminate\Http\Response
+     * @param \App\Http\Requests\Companies\UpdateCompanyRequest $request
+     * @param int $id
+     * @return void
      */
-    public function update(UpdateCompanyRequest $request, Company $company)
+    public function update(UpdateCompanyRequest $request, int $id): void
     {
-        //
+        $this->repository->getCompanyById($id)->update($request->validated());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Companies\Company  $company
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return void
      */
-    public function destroy(Company $company)
+    public function destroy(int $id): void
     {
-        //
+        $this->repository->getCompanyById($id)->delete();
     }
 }

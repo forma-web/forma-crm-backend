@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('mails.profile_created', [
-        'username' => 'Тест',
-        'password' => '1234235'
-    ]);
-});
+//Route::get('/', function () {
+//    return view('mails.profile_created', [
+//        'username' => 'Тест',
+//        'password' => '1234235'
+//    ]);
+//});
 //
 //Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 //

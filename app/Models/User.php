@@ -37,7 +37,7 @@ final class User extends Authenticatable implements JWTSubject
     ];
 
     /**
-     * @var string[]
+     * @var array<string, mixed>
      */
     protected $casts = [
         'birth_date' => 'date',
@@ -65,6 +65,6 @@ final class User extends Authenticatable implements JWTSubject
      */
     public function companies(): BelongsToMany
     {
-        return $this->belongsToMany(Company::class, CompanyUser::class);
+        return $this->belongsToMany(Company::class, CompanyUser::class)->withTimestamps();
     }
 }

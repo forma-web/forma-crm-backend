@@ -24,6 +24,9 @@ final class Permission extends Model
         'scope',
     ];
 
+    /**
+     * @var array<string, mixed>
+     */
     protected $casts = [
         'scope' => PermissionScopesEnum::class,
     ];
