@@ -1,12 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\Auth\RegistrationController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\OfficeController;
-use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,46 +9,11 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "api" middleware group. Make something great!
 |
 */
 
-Route::prefix('/auth')->group(function () {
-
-    Route::post('login', [LoginController::class, 'login'])->name('auth.login');
-    Route::post('registration', RegistrationController::class)->name('auth.registration');
-
-    Route::middleware('auth')->group(function () {
-        Route::get('user', [LoginController::class, 'showAuthenticatedUser'])->name('auth.user');
-        Route::post('logout', LogoutController::class)->name('auth.logout');
-    });
-
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 });
-
-Route::middleware('auth')->group(function () {
-    Route::apiResource('users', UserController::class)->except(['create', 'destroy']);
-    Route::apiResource('companies', CompanyController::class);
-    Route::apiResource('companies.offices', OfficeController::class);
-    Route::apiResource('companies.departments', DepartmentController::class);
-});
-
-//Route::prefix('/settings')->group(function () {
-//
-//    Route::prefix('/leads')->group(function () {
-//        Route::apiResource('/statuses', LeadStatusController::class);
-//        Route::apiResource('/sources', LeadSourceController::class);
-//    });
-//
-//    Route::prefix('/employees')->group(function () {
-//        Route::apiResource('/departments', EmployeeDepartmentController::class);
-//        Route::apiResource('/offices', EmployeeOfficeController::class);
-//        Route::apiResource('/permissions', EmployeePermissionController::class);
-//        Route::apiResource('/positions', EmployeePositionController::class);
-//    });
-//
-//});
-//
-//Route::apiResource('/feedback', FeedbackController::class);
-
-//Route::apiResource('/leads', LeadController::class);

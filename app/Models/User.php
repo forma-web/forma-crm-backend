@@ -2,69 +2,43 @@
 
 namespace App\Models;
 
-use App\Models\Companies\Company;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use Laravel\Sanctum\HasApiTokens;
 
-final class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * @var string[]
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'middle_name',
+        'name',
         'email',
-        'phone',
-        'birth_date',
-        'sex',
-        'avatar',
         'password',
     ];
 
     /**
-     * @var string[]
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
      */
     protected $hidden = [
-        'email_verified_at',
         'password',
+        'remember_token',
     ];
 
     /**
-     * @var array<string, mixed>
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
      */
     protected $casts = [
-        'birth_date' => 'date',
         'email_verified_at' => 'datetime',
     ];
-
-    /**
-     * @return mixed
-     */
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    /**
-     * @return array
-     */
-    public function getJWTCustomClaims(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function companies(): BelongsToMany
-    {
-        return $this->belongsToMany(Company::class, CompanyUser::class)->withTimestamps();
-    }
 }
