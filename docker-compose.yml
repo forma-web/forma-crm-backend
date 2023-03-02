@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+
+  app:
+    container_name: app
+    build:
+      dockerfile: build/unit/Dockerfile
+      context: .
+    volumes:
+      - "./build/unit/config.json:/docker-entrypoint.d/config.json"
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    networks:
+      - crm_net
+#    depends_on:
+#      database:
+#        condition: service_healthy
+
+#  database:
+#    container_name: database
+#    image: postgres:latest
+#    environment:
+#      PGPASSWORD: "${DB_PASSWORD:-secret}"
+#      POSTGRES_DB: "${DB_DATABASE}"
+#      POSTGRES_USER: "${DB_USERNAME}"
+#      POSTGRES_PASSWORD: "${DB_PASSWORD:-secret}"
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - "crm_vol:/var/lib/postgresql/data"
+#    networks:
+#      - crm_net
+#    healthcheck:
+#      test: [ "CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}" ]
+#      retries: 3
+#      timeout: 5s
+
+networks:
+  crm_net:
+    driver: bridge
+
+volumes:
+  crm_vol:
+    driver: local

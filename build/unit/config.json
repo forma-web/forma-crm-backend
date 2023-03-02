@@ -1,0 +1,29 @@
+{
+    "listeners": {
+        "*:8080": {
+            "pass": "routes"
+        }
+    },
+    "routes": [
+        {
+            "match": {
+                "uri": "!/index.php"
+            },
+            "action": {
+                "share": "/app/public$uri",
+                "fallback": {
+                    "pass": "applications/laravel"
+                }
+            }
+        }
+    ],
+    "applications": {
+        "laravel": {
+            "type": "php",
+            "root": "/app/public",
+            "script": "index.php",
+            "user": "backend",
+            "group": "backend"
+        }
+    }
+}
