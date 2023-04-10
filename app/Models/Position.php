@@ -15,6 +15,7 @@ class Position extends Model
      * @var string
      */
     protected $table = 'positions';
+
     /**
      * Первичный ключ таблицы БД.
      *
