@@ -46,4 +46,4 @@ Route::group([
 });
 
 Route::post('/user/setposition', [UserController::class, 'setPosition']);
-Route::post('/register', 'UserController');
+//Route::post('/register', 'UserController');
