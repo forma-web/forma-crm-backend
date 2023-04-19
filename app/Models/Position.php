@@ -9,21 +9,5 @@ class Position extends Model
 {
     use HasFactory;
 
-    /**
-     * Таблица БД, ассоциированная с моделью.
-     *
-     * @var string
-     */
-    protected $table = 'positions';
-
-    /**
-     * Первичный ключ таблицы БД.
-     *
-     * @var int
-     */
-    protected $primaryKey = 'id';
-
-    protected $visible = ['name'];
-
     protected $fillable = ['name'];
 }

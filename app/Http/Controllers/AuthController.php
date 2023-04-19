@@ -23,9 +23,11 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
+        abort_if(
+            ! $token = auth()->attempt($credentials),
+            403,
+            'Авторизация не прошла',
+        );
 
         return $this->respondWithToken($token);
     }
@@ -43,13 +45,13 @@ class AuthController extends Controller
     /**
      * Log the user out (Invalidate the token).
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function logout()
     {
         auth()->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->noContent();
     }
 
     /**

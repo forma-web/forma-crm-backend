@@ -2,18 +2,60 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdatePositionRequest;
 use App\Models\Position;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class PositionController extends Controller
 {
-    public function getPositions()
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
-        return Position::all();
+        return Position::paginate(5);
     }
 
-    public function removePosition($id)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $name = $request->get('name');
+        $position = Position::create(['name'=> $name]);
+
+        return response()->json($position);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($id)
+    {
+        $position = Position::find($id);
+
+        if ($position) {
+            return $position;
+        } else {
+            abort(404);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdatePositionRequest $request, int $id_position)
+    {
+        $position = Position::findOrFail($id_position)->update($request->validated());
+
+        return response()->json($position);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
     {
         $position = Position::find($id);
         $users = User::where('id_position', $id)->get();
@@ -30,35 +72,14 @@ class PositionController extends Controller
         }
     }
 
-    public function editPosition(Request $request)
+    public function setPosition(Request $request): \Illuminate\Http\JsonResponse
     {
         $id_position = $request->get('id_position');
-        $name = $request->get('name');
-        $position = Position::find($id_position);
-        $name ? $position->name = $name : '';
-        $position->save();
+        $id_user = $request->get('id_user');
+        $user = User::find($id_user);
+        $user->id_position = $id_position;
+        $user->save();
 
-        return response()->json($position);
-    }
-
-    public function createPosition(Request $request)
-    {
-        $name = $request->get('name');
-        $position = new Position();
-        $position->name = $name;
-        $position->save();
-
-        return response()->json($position);
-    }
-
-    public function getPosition($id)
-    {
-        $position = Position::find($id);
-
-        if ($position) {
-            return $position;
-        } else {
-            return 'Такой позиции не существует';
-        }
+        return response()->json($user);
     }
 }
