@@ -20,4 +20,14 @@ class UserController extends Controller
 
         return response()->noContent(201);
     }
+
+    public function setPosition(Request $request, int $user_id): \Illuminate\Http\JsonResponse
+    {
+        $id_position = $request->get('id_position');
+        $user = User::find($user_id);
+        $user->id_position = $id_position;
+        $user->save();
+
+        return response()->json($user);
+    }
 }

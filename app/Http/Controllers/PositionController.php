@@ -23,7 +23,7 @@ class PositionController extends Controller
     public function store(Request $request)
     {
         $name = $request->get('name');
-        $position = Position::create(['name'=> $name]);
+        $position = Position::create(['name' => $name]);
 
         return response()->json($position);
     }
@@ -70,16 +70,5 @@ class PositionController extends Controller
 
             return response()->json(['data' => $position, 'message' => 'Позиция успешно удалена'], 200);
         }
-    }
-
-    public function setPosition(Request $request): \Illuminate\Http\JsonResponse
-    {
-        $id_position = $request->get('id_position');
-        $id_user = $request->get('id_user');
-        $user = User::find($id_user);
-        $user->id_position = $id_position;
-        $user->save();
-
-        return response()->json($user);
     }
 }
