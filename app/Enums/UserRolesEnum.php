@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum UserRolesEnum : string
+enum UserRolesEnum: string
 {
     use Arrayable;
 
