@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OtpsController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -36,4 +37,9 @@ Route::group([
 Route::post('/user/{user_id}/position', [UserController::class, 'setPosition']);
 Route::post('/register', [UserController::class, 'register']);
 
-Route::apiResource('/postion', PositionController::class);
+Route::apiResource('/position', PositionController::class);
+Route::get('/otps', [OtpsController::class, 'generateCode']);
+
+Route::post('/otps', [OtpsController::class, 'store']);
+Route::patch('/reset', [OtpsController::class, 'reset']);
+Route::post('/code_check', [OtpsController::class, 'code_check']); // без понятия как назвать не используя глаголы
