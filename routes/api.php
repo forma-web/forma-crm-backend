@@ -38,6 +38,9 @@ Route::post('/user/{user_id}/position', [UserController::class, 'setPosition']);
 Route::post('/register', [UserController::class, 'register']);
 
 Route::apiResource('/position', PositionController::class);
+Route::apiResource('/client', \App\Http\Controllers\ClientController::class);
+Route::apiResource('/document', \App\Http\Controllers\DocumentController::class);
+Route::apiResource('/file', \App\Http\Controllers\DocumentFileController::class);
 Route::get('/otps', [OtpsController::class, 'generateCode']);
 
 Route::post('/otps', [OtpsController::class, 'store']);

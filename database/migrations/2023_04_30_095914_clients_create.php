@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('task', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table){
             $table->id();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('middle_name')->nullable();
+            $table->enum('sex',['man','woman']);
+            $table->date('birth_date');
+            $table->string('note')->nullable();
             $table->timestamps();
-            $table->string('name');
-            $table->boolean('isDone')->default(false);
-            $table->string('desc');
         });
     }
 
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('task');
+        Schema::dropIfExists('clients');
     }
 };
